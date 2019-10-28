@@ -17,7 +17,6 @@ try:
 except:  # gevent not found
     from subprocess import Popen, PIPE
 
-
 try:
     import audioop
 except ImportError:
