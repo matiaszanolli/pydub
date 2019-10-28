@@ -2,7 +2,6 @@ from __future__ import division
 
 import array
 import os
-import subprocess
 from tempfile import TemporaryFile, NamedTemporaryFile
 import wave
 import sys
@@ -23,6 +22,14 @@ try:
     from itertools import izip
 except:
     izip = zip
+
+try:
+    if 'gunicorn' in os.environ.get('SERVER_SOFTWARE', ''):
+        from gevent import subprocess
+    else:
+        import subprocess
+except:  # gevent not found
+    import subprocess
 
 from .utils import (
     _fd_or_path_or_tempfile,

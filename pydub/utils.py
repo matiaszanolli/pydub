@@ -4,11 +4,19 @@ import json
 import os
 import re
 import sys
-from subprocess import Popen, PIPE
 from math import log, ceil
 from tempfile import TemporaryFile
 from warnings import warn
 from functools import wraps
+
+try:
+    if 'gunicorn' in os.environ.get('SERVER_SOFTWARE', ''):
+        from gevent.subprocess import Popen, PIPE
+    else:
+        from subprocess import Popen, PIPE
+except:  # gevent not found
+    from subprocess import Popen, PIPE
+
 
 try:
     import audioop
