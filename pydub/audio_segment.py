@@ -10,7 +10,6 @@ from collections import namedtuple
 from io import BytesIO
 from tempfile import NamedTemporaryFile, TemporaryFile
 
-from . import effects
 from .exceptions import (CouldntDecodeError, CouldntEncodeError,
                          InvalidDuration, InvalidID3TagVersion, InvalidTag,
                          MissingAudioParameter, TooManyMissingFrames)
