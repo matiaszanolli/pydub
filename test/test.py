@@ -1,44 +1,22 @@
-from functools import partial
 import os
-import sys
-import unittest
-from tempfile import (
-    NamedTemporaryFile,
-    mkdtemp,
-    gettempdir
-)
-import tempfile
 import struct
+import sys
+import tempfile
+import unittest
+from functools import partial
+from tempfile import NamedTemporaryFile, gettempdir, mkdtemp
 
 from pydub import AudioSegment
 from pydub.audio_segment import extract_wav_headers
-from pydub.utils import (
-    db_to_float,
-    ratio_to_db,
-    make_chunks,
-    mediainfo,
-    get_encoder_name,
-    get_supported_decoders,
-    get_supported_encoders,
-)
-from pydub.exceptions import (
-    InvalidTag,
-    InvalidID3TagVersion,
-    InvalidDuration,
-    CouldntDecodeError,
-    MissingAudioParameter,
-)
-from pydub.silence import (
-    detect_silence,
-)
-from pydub.generators import (
-    Sine,
-    Square,
-    Pulse,
-    Triangle,
-    Sawtooth,
-    WhiteNoise,
-)
+from pydub.exceptions import (CouldntDecodeError, InvalidDuration,
+                              InvalidID3TagVersion, InvalidTag,
+                              MissingAudioParameter)
+from pydub.generators import (Pulse, Sawtooth, Sine, Square, Triangle,
+                              WhiteNoise)
+from pydub.silence import detect_silence
+from pydub.utils import (db_to_float, get_encoder_name, get_supported_decoders,
+                         get_supported_encoders, make_chunks, mediainfo,
+                         ratio_to_db)
 
 data_dir = os.path.join(os.path.dirname(__file__), 'data')
 

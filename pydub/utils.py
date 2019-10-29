@@ -4,10 +4,10 @@ import json
 import os
 import re
 import sys
-from math import log, ceil
+from functools import wraps
+from math import ceil, log
 from tempfile import TemporaryFile
 from warnings import warn
-from functools import wraps
 
 try:
     if 'gunicorn' in os.environ.get('SERVER_SOFTWARE', ''):

@@ -6,8 +6,8 @@ except ImportError:
     from builtins import min as builtin_min
 import math
 import struct
-from fractions import gcd
 from ctypes import create_string_buffer
+from fractions import gcd
 
 
 class error(Exception):

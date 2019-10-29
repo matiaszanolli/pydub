@@ -151,5 +151,3 @@ def detect_leading_silence(sound, silence_threshold=-50.0, chunk_size=10):
         trim_ms += chunk_size
 
     return trim_ms
-
-
