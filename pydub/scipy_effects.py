@@ -10,6 +10,7 @@ audio_segment.high_pass_filter() instead of the slower, less powerful versions
 provided by pydub.effects.
 """
 from scipy.signal import butter, sosfilt
+
 from .utils import register_pydub_effect
 
 

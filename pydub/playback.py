@@ -5,9 +5,19 @@ is tricky to install. See my notes on installing pyaudio in a virtualenv (on
 OSX 10.10): https://gist.github.com/jiaaro/9767512210a1d80a8a0d
 """
 
-import subprocess
+import os
 from tempfile import NamedTemporaryFile
+
 from .utils import get_player_name, make_chunks
+
+try:
+    if 'gunicorn' in os.environ.get('SERVER_SOFTWARE', ''):
+        from gevent import subprocess
+    else:
+        import subprocess
+except:  # gevent not found
+    import subprocess
+
 
 PLAYER = get_player_name()
 

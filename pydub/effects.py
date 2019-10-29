@@ -1,16 +1,11 @@
-import sys
-import math
 import array
-from .utils import (
-    db_to_float,
-    ratio_to_db,
-    register_pydub_effect,
-    make_chunks,
-    audioop,
-    get_min_max_value
-)
+import math
+import sys
+
+from .exceptions import InvalidDuration, TooManyMissingFrames
 from .silence import split_on_silence
-from .exceptions import TooManyMissingFrames, InvalidDuration
+from .utils import (audioop, db_to_float, get_min_max_value, make_chunks,
+                    ratio_to_db, register_pydub_effect)
 
 if sys.version_info >= (3, 0):
     xrange = range

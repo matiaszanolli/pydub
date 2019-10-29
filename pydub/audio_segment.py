@@ -1,46 +1,43 @@
 from __future__ import division
 
 import array
-import os
-import subprocess
-from tempfile import TemporaryFile, NamedTemporaryFile
-import wave
-import sys
-import struct
-from .logging_utils import log_conversion, log_subprocess_output
-from .utils import mediainfo_json, fsdecode
 import base64
+import os
+import struct
+import sys
+import wave
 from collections import namedtuple
+from io import BytesIO
+from tempfile import NamedTemporaryFile, TemporaryFile
+
+from . import effects
+from .exceptions import (CouldntDecodeError, CouldntEncodeError,
+                         InvalidDuration, InvalidID3TagVersion, InvalidTag,
+                         MissingAudioParameter, TooManyMissingFrames)
+from .logging_utils import log_conversion, log_subprocess_output
+from .utils import (_fd_or_path_or_tempfile, audioop, db_to_float, fsdecode,
+                    get_array_type, get_encoder_name, mediainfo_json,
+                    ratio_to_db)
 
 try:
     from StringIO import StringIO
 except:
     from io import StringIO
 
-from io import BytesIO
 
 try:
     from itertools import izip
 except:
     izip = zip
 
-from .utils import (
-    _fd_or_path_or_tempfile,
-    db_to_float,
-    ratio_to_db,
-    get_encoder_name,
-    get_array_type,
-    audioop,
-)
-from .exceptions import (
-    TooManyMissingFrames,
-    InvalidDuration,
-    InvalidID3TagVersion,
-    InvalidTag,
-    CouldntDecodeError,
-    CouldntEncodeError,
-    MissingAudioParameter,
-)
+try:
+    if 'gunicorn' in os.environ.get('SERVER_SOFTWARE', ''):
+        from gevent import subprocess
+    else:
+        import subprocess
+except:  # gevent not found
+    import subprocess
+
 
 if sys.version_info >= (3, 0):
     basestring = str
@@ -1323,6 +1320,3 @@ class AudioSegment(object):
         fh = self.export()
         data = base64.b64encode(fh.read()).decode('ascii')
         return src.format(base64=data)
-
-
-from . import effects
